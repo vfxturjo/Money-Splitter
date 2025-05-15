@@ -1,7 +1,5 @@
-<script lang="ts">
-	import { appState } from '$lib/state.svelte';
-	import InputParts from './inputParts.svelte';
-	import OutputParts from './outputParts.svelte';
+<script>
+	import { base } from '$app/paths';
 </script>
 
 <div class="container mx-auto grid grid-cols-1">
@@ -23,22 +21,11 @@
 			way for everyone to pay each other back, cutting down on unnecessary transfers and making settling
 			up smooth and easy. No more awkward money chats!
 		</p>
-	</div>
 
-	<!-- Main input -->
-	<div class="*:p-2">
-		<InputParts />
-	</div>
-
-	<span class="py-6"></span>
-	<hr class="hr border-4 border-double" />
-	<span class="py-6"></span>
-
-	{#if appState.show}
-		<div>
-			<OutputParts></OutputParts>
+		<div class="my-8 w-full text-center">
+			<a href="{base}/App">
+				<button class="btn preset-filled-primary-500 w-1/5">Start</button>
+			</a>
 		</div>
-	{/if}
+	</div>
 </div>
-<!-- Footer -->
-<footer class="p-4">Thanks for using! created by vfxTurjo!</footer>

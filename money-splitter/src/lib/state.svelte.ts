@@ -69,7 +69,8 @@ export interface SplitData {
 }
 
 export const appState = $state({
-	show: false
+	showInputTable: false,
+	showOutput: false
 });
 
 export const default_data: SplitData = {
@@ -79,12 +80,12 @@ export const default_data: SplitData = {
 	peopleData: [
 		{
 			id: 1,
-			name: '',
+			name: 'person-1',
 			paid: 0
 		},
 		{
 			id: 2,
-			name: '',
+			name: 'person-2',
 			paid: 0
 		}
 	]
@@ -98,12 +99,12 @@ export const data = $state({
 	peopleData: [
 		{
 			id: 1,
-			name: '',
+			name: 'person-1',
 			paid: 0
 		},
 		{
 			id: 2,
-			name: '',
+			name: 'person-2',
 			paid: 0
 		}
 	]
@@ -129,7 +130,7 @@ export function resetPeopleData(clean: boolean = false) {
 			if (clean && currentPeople[i]) {
 				newPeople.push(currentPeople[i] as paymentData);
 			} else {
-				newPeople.push({ id: i + 1, name: '', paid: 0 } as paymentData);
+				newPeople.push({ id: i + 1, name: 'person-' + (i + 1), paid: 0 } as paymentData);
 			}
 		}
 
