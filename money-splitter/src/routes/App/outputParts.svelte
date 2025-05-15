@@ -11,7 +11,7 @@
 	});
 </script>
 
-<h4 class="h4 p-4">Transaction Diagram</h4>
+<h4 class="h4 p-4 text-left">Transaction Diagram</h4>
 <div class="flex w-full flex-col items-center">
 	<MermaidRender diagramString={mermaidState.mermaidString}></MermaidRender>
 </div>
@@ -27,14 +27,14 @@
 						<th class="w-44 text-center">Name</th>
 						<th class="w-28 !text-right">Paid</th>
 						<th class="w-28 !text-right">Balance</th>
-						<th class="w-28 min-w-32 !text-right">Transactions</th>
+						<th class="w-44 min-w-44 !text-right">Transactions</th>
 					</tr>
 				</thead>
 				<tbody>
 					{#each calculatedResults.fullTableData as row}
 						<tr>
 							<td>{row[0]}</td>
-							<td>{row[1]}</td>
+							<td class="text-left">{row[1]}</td>
 							<td class="text-right">{row[2]}</td>
 							<td class="text-right">{row[3]}</td>
 							<td class="text-right">

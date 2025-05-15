@@ -6,50 +6,52 @@
 	let peopleData_sumPaid = $derived(data.peopleData.reduce((sum, person) => sum + person.paid, 0));
 </script>
 
-<form class="mx-auto w-full max-w-md flex-col items-center space-y-4">
-	<h4 class="h4 w-full text-center">Overall Scenerio</h4>
-	<div class="flex gap-2">
-		<label class="label">
-			<span class="label-text">Total amount</span>
-			<input
-				type="number"
-				class="input"
-				placeholder="Enter Number"
-				min="0"
-				step="0.01"
-				bind:value={data.totalAmount}
-			/>
-		</label>
+<div class="card max-w-full space-y-4 p-4">
+	<h4 class="h4 w-full px-4 text-left">Overall Scenerio</h4>
+	<form class="mx-auto w-full max-w-lg flex-col items-center space-y-4">
+		<div class="flex gap-2">
+			<label class="label">
+				<span class="label-text">Total amount</span>
+				<input
+					type="number"
+					class="input"
+					placeholder="Enter Number"
+					min="0"
+					step="0.01"
+					bind:value={data.totalAmount}
+				/>
+			</label>
 
-		<label class="label">
-			<span class="label-text">Number of people</span>
-			<input
-				type="number"
-				class="input"
-				min="2"
-				step="1"
-				placeholder="Enter Number"
-				bind:value={data.totalNoOfPeople}
-			/>
-		</label>
-	</div>
-	<p class="text-center">
-		Amount to be paid per person: <span class="font-bold">{amountToPayPerPerson}</span>
-	</p>
+			<label class="label">
+				<span class="label-text">Number of people</span>
+				<input
+					type="number"
+					class="input"
+					min="2"
+					step="1"
+					placeholder="Enter Number"
+					bind:value={data.totalNoOfPeople}
+				/>
+			</label>
+		</div>
+		<p class="text-center">
+			Amount to be paid per person: <span class="font-bold">{amountToPayPerPerson}</span>
+		</p>
 
-	<button
-		class="btn preset-filled w-full"
-		onclick={() => {
-			resetPeopleData(false);
-			appState.showInputTable = true;
-		}}>Start Input!</button
-	>
-</form>
+		<button
+			class="btn preset-filled w-full print:hidden"
+			onclick={() => {
+				resetPeopleData(false);
+				appState.showInputTable = true;
+			}}>Start Input!</button
+		>
+	</form>
+</div>
 
 {#if appState.showInputTable}
 	<div class="card max-w-full space-y-4 p-4">
+		<h4 class="h4 px-4">People Details</h4>
 		<div class="flex flex-col items-center">
-			<h4 class="h4">People Details</h4>
 			<table class="table w-full max-w-[56rem]">
 				<thead>
 					<tr>
@@ -85,6 +87,12 @@
 									min="0"
 									step="0.01"
 									bind:value={person.paid}
+									onclick={() => {
+										if (person.paid == 0) person.paid = null!;
+									}}
+									onfocusout={() => {
+										if (person.paid == null) person.paid = 0;
+									}}
 								/>
 							</td>
 							<td class="text-right">
@@ -123,7 +131,7 @@
 		</div>
 	</div>
 
-	<div class="w-full text-center">
+	<div class="w-full text-center print:hidden">
 		<button
 			class="btn preset-filled-primary-500 w-1/2"
 			disabled={data.totalAmount == 0 || peopleData_sumPaid != data.totalAmount}
@@ -132,7 +140,11 @@
 				appState.showOutput = true;
 			}}
 		>
-			Calculate
+			{#if !appState.showOutput}
+				Calculate
+			{:else}
+				Calculated!
+			{/if}
 		</button>
 	</div>
 {/if}

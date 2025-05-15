@@ -44,6 +44,7 @@
 		"@types/mermaid": "^9.2.0",
 		"gh-pages": "^6.3.0",
 		"lucide-svelte": "^0.510.0",
-		"mermaid": "^11.6.0"
+		"mermaid": "^11.6.0",
+		"superjson": "^2.2.2"
 	}
 }

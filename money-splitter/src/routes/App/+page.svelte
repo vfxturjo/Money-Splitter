@@ -9,12 +9,20 @@
 	<InputParts />
 </div>
 
-<div class="py-8"></div>
-<hr class="hr border-4 border-double" />
-<div class="py-6"></div>
+<div class="print:hidden">
+	<div class="py-8"></div>
+	<hr class="hr border-4 border-double" />
+	<div class="py-6"></div>
+</div>
 
 {#if appState.showOutput}
-	<OutputParts></OutputParts>
+	<div class="w-full break-before-page text-center">
+		<OutputParts></OutputParts>
+
+		<button class="btn btn-sm preset-filled-surface-500 print:hidden" onclick={() => window.print()}
+			>Click to print</button
+		>
+	</div>
 {/if}
 
 <!-- Footer -->
