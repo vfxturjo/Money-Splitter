@@ -1,3 +1,5 @@
+import { PersistedStateObjectAdvanced } from './StoreSavers/persistedStoreAdvanced.svelte';
+
 export const example_data = {
 	totalAmount: 100,
 	totalNoOfPeople: 10,
@@ -68,10 +70,16 @@ export interface SplitData {
 	peopleData: paymentData[];
 }
 
-export const appState = $state({
-	showInputTable: false,
-	showOutput: false
-});
+export const appState = new PersistedStateObjectAdvanced(
+	'appState',
+	{
+		showInputTable: false,
+		showOutput: false
+	},
+	{
+		syncTabs: false
+	}
+);
 
 export const default_data: SplitData = {
 	totalAmount: 0,
@@ -92,36 +100,42 @@ export const default_data: SplitData = {
 };
 
 // MAIN
-export const data = $state({
-	totalAmount: 0,
-	totalNoOfPeople: 2,
+export const data = new PersistedStateObjectAdvanced(
+	'data',
+	{
+		totalAmount: 0,
+		totalNoOfPeople: 2,
 
-	peopleData: [
-		{
-			id: 1,
-			name: 'person-1',
-			paid: 0
-		},
-		{
-			id: 2,
-			name: 'person-2',
-			paid: 0
-		}
-	]
-} as SplitData);
+		peopleData: [
+			{
+				id: 1,
+				name: 'person-1',
+				paid: 0
+			},
+			{
+				id: 2,
+				name: 'person-2',
+				paid: 0
+			}
+		]
+	} as SplitData,
+	{
+		syncTabs: false
+	}
+);
 
 // LOADING EXAMPLES!!!!!
 export function loadExampleDataset() {
-	data.totalAmount = example_data['totalAmount'];
-	data.totalNoOfPeople = example_data['totalNoOfPeople'];
-	data.peopleData = example_data['peopleData'];
+	data.v.totalAmount = example_data['totalAmount'];
+	data.v.totalNoOfPeople = example_data['totalNoOfPeople'];
+	data.v.peopleData = example_data['peopleData'];
 }
 
 // reset data!
 export function resetPeopleData(clean: boolean = false) {
-	const currentPeople = data.peopleData;
+	const currentPeople = data.v.peopleData;
 	const currentCount = currentPeople.length;
-	const targetCount = Math.max(1, Math.floor(data.totalNoOfPeople)); // Ensure at least 1 person
+	const targetCount = Math.max(1, Math.floor(data.v.totalNoOfPeople)); // Ensure at least 1 person
 
 	if (currentCount !== targetCount) {
 		const newPeople = [];
@@ -138,7 +152,7 @@ export function resetPeopleData(clean: boolean = false) {
 		newPeople.forEach((person, index) => {
 			person.id = index + 1;
 		});
-		data.peopleData = newPeople;
+		data.v.peopleData = newPeople;
 	}
 }
 
@@ -155,8 +169,8 @@ export const calculatedResults = $state({
 });
 
 export function createFullCalculatedTableData() {
-	const tableData = data.peopleData.map((person) => {
-		const amountDue = data.totalAmount / data.totalNoOfPeople - person.paid;
+	const tableData = data.v.peopleData.map((person) => {
+		const amountDue = data.v.totalAmount / data.v.totalNoOfPeople - person.paid;
 		const toPay: { to: string; amount: number }[] = [];
 
 		calculatedResults.optimumTransactions.forEach(([from, to, amount]) => {

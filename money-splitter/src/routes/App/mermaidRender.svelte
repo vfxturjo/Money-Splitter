@@ -2,12 +2,14 @@
 	import mermaid from 'mermaid';
 	let { diagramString } = $props();
 	let container: HTMLDivElement;
+	let loading = $state(false);
 
 	async function renderDiagram() {
-		// console.log(diagramString);
+		loading = true;
 		mermaid.initialize({ theme: 'dark' });
 		const { svg } = await mermaid.render('mermaid', diagramString);
 		container.innerHTML = svg;
+		loading = false;
 	}
 
 	$effect(() => {
@@ -15,4 +17,7 @@
 	});
 </script>
 
+{#if loading}
+	<div>Loading diagram...</div>
+{/if}
 <div bind:this={container}></div>

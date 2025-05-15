@@ -1,13 +1,38 @@
 <script lang="ts">
 	import { calculateAllTransactions } from '$lib/calculator.svelte';
-	import { appState, data, mermaidState, resetPeopleData, type SplitData } from '$lib/state.svelte';
+	import {
+		appState,
+		data,
+		loadExampleDataset,
+		mermaidState,
+		resetPeopleData,
+		type SplitData
+	} from '$lib/state.svelte';
+	import { Paperclip } from 'lucide-svelte';
 
-	let amountToPayPerPerson = $derived(Number((data.totalAmount / data.totalNoOfPeople).toFixed(2)));
-	let peopleData_sumPaid = $derived(data.peopleData.reduce((sum, person) => sum + person.paid, 0));
+	let amountToPayPerPerson = $derived(
+		Number((data.v.totalAmount / data.v.totalNoOfPeople).toFixed(2))
+	);
+	let peopleData_sumPaid = $derived(
+		data.v.peopleData.reduce((sum, person) => sum + person.paid, 0)
+	);
 </script>
 
 <div class="card max-w-full space-y-4 p-4">
-	<h4 class="h4 w-full px-4 text-left">Overall Scenerio</h4>
+	<div class="flex">
+		<h4 class="h4 w-full px-4 text-left">Overall Scenerio</h4>
+		<button class="px-2" title="Load Example Dataset">
+			<Paperclip onclick={loadExampleDataset} size={20} />
+		</button>
+		<button
+			class="btn btn-sm preset-outlined"
+			title="clear the localStorage"
+			onclick={() => {
+				localStorage.clear();
+				location.reload();
+			}}>Reset all</button
+		>
+	</div>
 	<form class="mx-auto w-full max-w-lg flex-col items-center space-y-4">
 		<div class="flex gap-2">
 			<label class="label">
@@ -18,7 +43,7 @@
 					placeholder="Enter Number"
 					min="0"
 					step="0.01"
-					bind:value={data.totalAmount}
+					bind:value={data.v.totalAmount}
 				/>
 			</label>
 
@@ -30,7 +55,7 @@
 					min="2"
 					step="1"
 					placeholder="Enter Number"
-					bind:value={data.totalNoOfPeople}
+					bind:value={data.v.totalNoOfPeople}
 				/>
 			</label>
 		</div>
@@ -42,15 +67,15 @@
 			class="btn preset-filled w-full print:hidden"
 			onclick={() => {
 				resetPeopleData(false);
-				appState.showInputTable = true;
+				appState.v.showInputTable = true;
 			}}>Start Input!</button
 		>
 	</form>
 </div>
 
-{#if appState.showInputTable}
+{#if appState.v.showInputTable}
 	<div class="card max-w-full space-y-4 p-4">
-		<h4 class="h4 px-4">People Details</h4>
+		<h4 class="h4 p-4">People Details</h4>
 		<div class="flex flex-col items-center">
 			<table class="table w-full max-w-[56rem]">
 				<thead>
@@ -62,7 +87,7 @@
 					</tr>
 				</thead>
 				<tbody class="[&>tr]:hover:preset-outlined-primary-50-950">
-					{#each data.peopleData as person (person.id)}
+					{#each data.v.peopleData as person (person.id)}
 						<tr>
 							<td>{person.id}</td>
 							<td>
@@ -109,7 +134,7 @@
 						<td class="text-right"> <span class="mx-3"> Total </span> </td>
 						<td class="text-right">
 							<span
-								class="{peopleData_sumPaid == data.totalAmount
+								class="{peopleData_sumPaid == data.v.totalAmount
 									? 'text-green-500'
 									: 'text-red-500'} mx-3"
 							>
@@ -118,11 +143,11 @@
 						</td>
 						<td class="text-right">
 							<span
-								class={peopleData_sumPaid == data.totalAmount ? 'text-green-500' : 'text-red-500'}
+								class={peopleData_sumPaid == data.v.totalAmount ? 'text-green-500' : 'text-red-500'}
 							>
-								{peopleData_sumPaid == data.totalAmount
+								{peopleData_sumPaid == data.v.totalAmount
 									? ''
-									: 'Mismatch! (' + (peopleData_sumPaid - data.totalAmount) + ')'}
+									: 'Mismatch! (' + (peopleData_sumPaid - data.v.totalAmount) + ')'}
 							</span>
 						</td>
 					</tr>
@@ -133,14 +158,17 @@
 
 	<div class="w-full text-center print:hidden">
 		<button
+			title={data.v.totalAmount == 0 || peopleData_sumPaid != data.v.totalAmount
+				? 'Check the people details table'
+				: ''}
 			class="btn preset-filled-primary-500 w-1/2"
-			disabled={data.totalAmount == 0 || peopleData_sumPaid != data.totalAmount}
+			disabled={data.v.totalAmount == 0 || peopleData_sumPaid != data.v.totalAmount}
 			onclick={() => {
-				mermaidState.mermaidString = calculateAllTransactions(data);
-				appState.showOutput = true;
+				mermaidState.mermaidString = calculateAllTransactions(data.v);
+				appState.v.showOutput = true;
 			}}
 		>
-			{#if !appState.showOutput}
+			{#if !appState.v.showOutput}
 				Calculate
 			{:else}
 				Calculated!

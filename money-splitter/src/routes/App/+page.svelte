@@ -15,7 +15,7 @@
 	<div class="py-6"></div>
 </div>
 
-{#if appState.showOutput}
+{#if appState.v.showOutput}
 	<div class="w-full break-before-page text-center">
 		<OutputParts></OutputParts>
 
