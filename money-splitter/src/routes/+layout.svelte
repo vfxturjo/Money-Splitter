@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import '../app.css';
 
 	let { children } = $props();
@@ -8,7 +9,7 @@
 
 <div class="grid grid-rows-[auto_1fr_auto]">
 	<AppBar base="top-0 z-10 p-4" centerClasses="">
-		<span class="h5"> Money Splitter </span>
+		<a class="h5" href="/"> Money Splitter </a>
 	</AppBar>
 
 	<main class="col-span-1 space-y-4 p-4">
