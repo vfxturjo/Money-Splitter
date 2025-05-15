@@ -1,4 +1,7 @@
 <script lang="ts">
+	export const prerender = true;
+	export const trailingSlash = 'always';
+
 	import { loadExampleDataset } from '$lib/state.svelte';
 	import '../app.css';
 
