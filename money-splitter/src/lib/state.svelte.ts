@@ -1,4 +1,4 @@
-export const example_Data = {
+export const example_data = {
 	totalAmount: 100,
 	totalNoOfPeople: 10,
 
@@ -55,3 +55,119 @@ export const example_Data = {
 		}
 	]
 };
+
+export interface paymentData {
+	id: number;
+	name: string;
+	paid: number;
+}
+
+export interface SplitData {
+	totalAmount: number;
+	totalNoOfPeople: number;
+	peopleData: paymentData[];
+}
+
+export const appState = $state({
+	show: false
+});
+
+export const default_data: SplitData = {
+	totalAmount: 0,
+	totalNoOfPeople: 2,
+
+	peopleData: [
+		{
+			id: 1,
+			name: '',
+			paid: 0
+		},
+		{
+			id: 2,
+			name: '',
+			paid: 0
+		}
+	]
+};
+
+// MAIN
+export const data = $state({
+	totalAmount: 0,
+	totalNoOfPeople: 2,
+
+	peopleData: [
+		{
+			id: 1,
+			name: '',
+			paid: 0
+		},
+		{
+			id: 2,
+			name: '',
+			paid: 0
+		}
+	]
+} as SplitData);
+
+// LOADING EXAMPLES!!!!!
+export function loadExampleDataset() {
+	data.totalAmount = example_data['totalAmount'];
+	data.totalNoOfPeople = example_data['totalNoOfPeople'];
+	data.peopleData = example_data['peopleData'];
+}
+
+// reset data!
+export function resetPeopleData(clean: boolean = false) {
+	const currentPeople = data.peopleData;
+	const currentCount = currentPeople.length;
+	const targetCount = Math.max(1, Math.floor(data.totalNoOfPeople)); // Ensure at least 1 person
+
+	if (currentCount !== targetCount) {
+		const newPeople = [];
+		for (let i = 0; i < targetCount; i++) {
+			// Preserve existing data if available, otherwise create a new entry
+			if (clean && currentPeople[i]) {
+				newPeople.push(currentPeople[i] as paymentData);
+			} else {
+				newPeople.push({ id: i + 1, name: '', paid: 0 } as paymentData);
+			}
+		}
+
+		// reset the id to be serially 1 to n
+		newPeople.forEach((person, index) => {
+			person.id = index + 1;
+		});
+		data.peopleData = newPeople;
+	}
+}
+
+/////////////////
+// OUTPUT
+export const mermaidState = $state({
+	mermaidLoading: false,
+	mermaidString: ''
+});
+
+export const calculatedResults = $state({
+	optimumTransactions: [] as [string, string, number][],
+	fullTableData: [] as (string | number | { to: string; amount: number }[])[][]
+});
+
+export function createFullCalculatedTableData() {
+	const tableData = data.peopleData.map((person) => {
+		const amountDue = data.totalAmount / data.totalNoOfPeople - person.paid;
+		const toPay: { to: string; amount: number }[] = [];
+
+		calculatedResults.optimumTransactions.forEach(([from, to, amount]) => {
+			if (person.name === from) {
+				toPay.push({ to, amount });
+			}
+		});
+
+		return [person.id, person.name, person.paid, amountDue, toPay];
+	});
+	// console.log(tableData);
+
+	calculatedResults.fullTableData = tableData;
+	return tableData;
+}

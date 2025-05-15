@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { loadExampleDataset } from '$lib/state.svelte';
 	import '../app.css';
 
 	let { children } = $props();
@@ -22,9 +23,9 @@
 		{/snippet}
 		{#snippet trail()}
 			<div class="hidden space-x-4 sm:flex">
-				<Paperclip size={20} />
-				<Calendar size={20} />
-				<CircleUser size={20} />
+				<Paperclip onclick={loadExampleDataset} size={20} />
+				<!-- <Calendar size={20} /> -->
+				<!-- <CircleUser size={20} /> -->
 			</div>
 			<div class="block sm:hidden">
 				<Menu size={20} />

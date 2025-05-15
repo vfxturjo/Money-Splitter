@@ -1,6 +1,6 @@
-import { example_Data as d } from './state.svelte';
+import { calculatedResults, type SplitData } from './state.svelte';
 
-export function calculateAllTransactions(d) {
+export function calculateAllTransactions(d: SplitData) {
 	// getting ready
 	const totalAmount = d.totalAmount;
 	const totalNoOfPeople = d.totalNoOfPeople;
@@ -96,10 +96,25 @@ export function calculateAllTransactions(d) {
 
 	// Combine direct and complicated payments for the final result
 	const allPayments = [...directPayments, ...complicatedPayments];
-	return allPayments;
 
-	// console.log('Average Pay:', averagePay);
-	// console.log('Initial People Data with toPay:', peopleData);
 	// console.log('All Payments (From, To, Amount):', allPayments);
+	// Ensure allPayments is an array of [string, string, number]
+	const filteredPayments: [string, string, number][] = allPayments
+		.filter((p) => Array.isArray(p) && p.length === 3)
+		.map((p) => [String(p[0]), String(p[1]), Number(p[2])] as [string, string, number]);
+
+	calculatedResults.optimumTransactions = filteredPayments;
+	return paymentsToMermaid(filteredPayments);
 }
-// Now you can use allPayments to display the transactions.
+
+export function paymentsToMermaid(allPayments: [string, string, number][]): string {
+	let mermaid = 'flowchart LR\n';
+	allPayments.forEach(([from, to, amount]) => {
+		const fromId = from.replace(/\s+/g, '_');
+		const toId = to.replace(/\s+/g, '_');
+		mermaid += `    ${fromId}("${from}") -->|${amount.toFixed(2)}| ${toId}("${to}")\n`;
+	});
+	// console.log(mermaid);
+
+	return mermaid;
+}

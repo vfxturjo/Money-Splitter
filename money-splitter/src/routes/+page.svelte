@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { appState } from '$lib/state.svelte';
 	import InputParts from './inputParts.svelte';
+	import OutputParts from './outputParts.svelte';
 </script>
 
 <div class="container mx-auto grid grid-cols-1">
@@ -27,6 +29,16 @@
 	<div class="*:p-2">
 		<InputParts />
 	</div>
+
+	<span class="py-6"></span>
+	<hr class="hr border-4 border-double" />
+	<span class="py-6"></span>
+
+	{#if appState.show}
+		<div>
+			<OutputParts></OutputParts>
+		</div>
+	{/if}
 </div>
 <!-- Footer -->
-<!-- <footer class="bg-blue-500 p-4">(footer)</footer> -->
+<footer class="p-4">Thanks for using! created by vfxTurjo!</footer>
