@@ -16,22 +16,24 @@
 	let peopleData_sumPaid = $derived(
 		data.v.peopleData.reduce((sum, person) => sum + person.paid, 0)
 	);
+
+	import { Modal } from '@skeletonlabs/skeleton-svelte';
+	let modalOpenState_example = $state(false);
+	let modalOpenState_reset = $state(false);
+	function modalClose() {
+		modalOpenState_example = false;
+		modalOpenState_reset = false;
+	}
 </script>
 
 <div class="card max-w-full space-y-4 p-4">
 	<div class="flex">
 		<h4 class="h4 w-full px-4 text-left">Overall Scenerio</h4>
 		<button class="px-2" title="Load Example Dataset">
-			<Paperclip onclick={loadExampleDataset} size={20} />
+			{@render ExampleDatasetLoader()}
 		</button>
-		<button
-			class="btn btn-sm preset-outlined"
-			title="clear the localStorage"
-			onclick={() => {
-				localStorage.clear();
-				location.reload();
-			}}>Reset all</button
-		>
+
+		{@render ResetAllData()}
 	</div>
 	<form class="mx-auto w-full max-w-lg flex-col items-center space-y-4">
 		<div class="flex gap-2">
@@ -72,6 +74,14 @@
 		>
 	</form>
 </div>
+
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
 
 {#if appState.v.showInputTable}
 	<div class="card max-w-full space-y-4 p-4">
@@ -176,3 +186,75 @@
 		</button>
 	</div>
 {/if}
+
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+
+{#snippet ExampleDatasetLoader()}
+	<Modal
+		open={modalOpenState_example}
+		onOpenChange={(e) => (modalOpenState_example = e.open)}
+		triggerBase="btn preset-tonal p-2"
+		contentBase="card bg-surface-100-900 p-4 space-y-4 shadow-xl max-w-screen-sm"
+	>
+		{#snippet trigger()}
+			<Paperclip size={20} />
+		{/snippet}
+		{#snippet content()}
+			<header class="flex justify-between">
+				<h4 class="h4">Load Example Dataset?</h4>
+			</header>
+			<article>
+				<p class="opacity-60">It will override current data</p>
+			</article>
+			<footer class="flex justify-end gap-4">
+				<button type="button" class="btn preset-tonal" onclick={modalClose}>Cancel</button>
+				<button
+					type="button"
+					class="btn preset-filled"
+					onclick={() => {
+						loadExampleDataset();
+						modalClose();
+					}}>Confirm</button
+				>
+			</footer>
+		{/snippet}
+	</Modal>
+{/snippet}
+
+{#snippet ResetAllData()}
+	<Modal
+		open={modalOpenState_reset}
+		onOpenChange={(e) => (modalOpenState_reset = e.open)}
+		triggerBase="btn preset-tonal"
+		contentBase="card bg-surface-100-900 p-4 space-y-4 shadow-xl max-w-screen-sm"
+	>
+		{#snippet trigger()}
+			Reset all
+		{/snippet}
+		{#snippet content()}
+			<header class="flex justify-between">
+				<h4 class="h4">Reset all?</h4>
+			</header>
+			<article>
+				<p class="opacity-60">It will clear all the local storage data, and start from scratch!</p>
+			</article>
+			<footer class="flex justify-end gap-4">
+				<button type="button" class="btn preset-tonal" onclick={modalClose}>Cancel</button>
+				<button
+					type="button"
+					class="btn preset-filled-warning-500"
+					onclick={() => {
+						localStorage.clear();
+						location.reload();
+					}}>Confirm</button
+				>
+			</footer>
+		{/snippet}
+	</Modal>
+{/snippet}

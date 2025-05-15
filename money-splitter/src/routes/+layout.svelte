@@ -9,7 +9,7 @@
 
 <div class="grid grid-rows-[auto_1fr_auto]">
 	<AppBar base="top-0 z-10 p-4" centerClasses="">
-		<a class="h5" href="/"> Money Splitter </a>
+		<a class="h5" href="{base}/">Money Splitter</a>
 	</AppBar>
 
 	<main class="col-span-1 space-y-4 p-4">
