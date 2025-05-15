@@ -26,16 +26,16 @@
 	}
 </script>
 
-<div class="card max-w-full space-y-4 p-4">
+<div class="space-y-4">
 	<div class="flex">
-		<h4 class="h4 w-full px-4 text-left">Overall Scenerio</h4>
+		<h4 class="h4 w-full text-left">Overall Scenerio</h4>
 		<button class="px-2" title="Load Example Dataset">
 			{@render ExampleDatasetLoader()}
 		</button>
 
 		{@render ResetAllData()}
 	</div>
-	<form class="mx-auto w-full max-w-lg flex-col items-center space-y-4">
+	<form class="mx-auto w-full flex-col items-center space-y-4">
 		<div class="flex gap-2">
 			<label class="label">
 				<span class="label-text">Total amount</span>
@@ -70,122 +70,110 @@
 			onclick={() => {
 				resetPeopleData(false);
 				appState.v.showInputTable = true;
-			}}>Start Input!</button
+			}}>Start Input</button
 		>
 	</form>
-</div>
 
-<!--  -->
-<!--  -->
-<!--  -->
-<!--  -->
-<!--  -->
-<!--  -->
-<!--  -->
-
-{#if appState.v.showInputTable}
-	<div class="card max-w-full space-y-4 p-4">
-		<h4 class="h4 p-4">People Details</h4>
-		<div class="flex flex-col items-center">
-			<table class="table w-full max-w-[56rem]">
-				<thead>
+	{#if appState.v.showInputTable}
+		<h4 class="h4 pt-8">People Details</h4>
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="!text-center"><span>ID </span> </th>
+					<th class="!text-center"><span>Name </span> </th>
+					<th class="!text-center"><span>Amount Paid </span> </th>
+					<th class="!text-center"><span>Amount Owing </span> </th>
+				</tr>
+			</thead>
+			<tbody class="[&>tr]:hover:preset-outlined-primary-50-950">
+				{#each data.v.peopleData as person (person.id)}
 					<tr>
-						<th class="!text-center"><span>ID </span> </th>
-						<th class="!text-center"><span>Name </span> </th>
-						<th class="!text-center"><span>Amount Paid </span> </th>
-						<th class="!text-center"><span>Amount Owing </span> </th>
-					</tr>
-				</thead>
-				<tbody class="[&>tr]:hover:preset-outlined-primary-50-950">
-					{#each data.v.peopleData as person (person.id)}
-						<tr>
-							<td>{person.id}</td>
-							<td>
-								<input
-									class="input"
-									type="text"
-									placeholder="Name"
-									bind:value={person.name}
-									onclick={() => {
-										if (person.name == 'person-' + person.id) person.name = '';
-									}}
-									onfocusout={() => {
-										if (person.name == '') person.name = 'person-' + person.id;
-									}}
-								/>
-							</td>
-							<td>
-								<input
-									class="input text-right"
-									type="number"
-									placeholder="0.00"
-									min="0"
-									step="0.01"
-									bind:value={person.paid}
-									onclick={() => {
-										if (person.paid == 0) person.paid = null!;
-									}}
-									onfocusout={() => {
-										if (person.paid == null) person.paid = 0;
-									}}
-								/>
-							</td>
-							<td class="text-right">
-								<span
-									class={amountToPayPerPerson - person.paid < 0 ? 'text-green-500' : 'text-red-500'}
-								>
-									{(amountToPayPerPerson - person.paid).toFixed(2)}
-								</span>
-							</td>
-						</tr>
-					{/each}
-					<tr>
-						<td></td>
-						<td class="text-right"> <span class="mx-3"> Total </span> </td>
-						<td class="text-right">
-							<span
-								class="{peopleData_sumPaid == data.v.totalAmount
-									? 'text-green-500'
-									: 'text-red-500'} mx-3"
-							>
-								{peopleData_sumPaid}
-							</span>
+						<td>{person.id}</td>
+						<td>
+							<input
+								class="input"
+								type="text"
+								placeholder="Name"
+								bind:value={person.name}
+								onclick={() => {
+									if (person.name == 'person-' + person.id) person.name = '';
+								}}
+								onfocusout={() => {
+									if (person.name == '') person.name = 'person-' + person.id;
+								}}
+							/>
+						</td>
+						<td>
+							<input
+								class="input text-right"
+								type="number"
+								placeholder="0.00"
+								min="0"
+								step="0.01"
+								bind:value={person.paid}
+								onclick={() => {
+									if (person.paid == 0) person.paid = null!;
+								}}
+								onfocusout={() => {
+									if (person.paid == null) person.paid = 0;
+								}}
+							/>
 						</td>
 						<td class="text-right">
 							<span
-								class={peopleData_sumPaid == data.v.totalAmount ? 'text-green-500' : 'text-red-500'}
+								class={amountToPayPerPerson - person.paid < 0 ? 'text-green-500' : 'text-red-500'}
 							>
-								{peopleData_sumPaid == data.v.totalAmount
-									? ''
-									: 'Mismatch! (' + (peopleData_sumPaid - data.v.totalAmount) + ')'}
+								{(amountToPayPerPerson - person.paid).toFixed(2)}
 							</span>
 						</td>
 					</tr>
-				</tbody>
-			</table>
+				{/each}
+				<tr>
+					<td></td>
+					<td class="text-right"> <span class="mx-3"> Total </span> </td>
+					<td class="text-right">
+						<span
+							class="{peopleData_sumPaid == data.v.totalAmount
+								? 'text-green-500'
+								: 'text-red-500'} mx-3"
+						>
+							{peopleData_sumPaid}
+						</span>
+					</td>
+					<td class="text-right">
+						<span
+							class={peopleData_sumPaid == data.v.totalAmount ? 'text-green-500' : 'text-red-500'}
+						>
+							{peopleData_sumPaid == data.v.totalAmount
+								? ''
+								: 'Mismatch! (' + (peopleData_sumPaid - data.v.totalAmount) + ')'}
+						</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="w-full text-center print:hidden">
+			<button
+				title={data.v.totalAmount == 0 || peopleData_sumPaid != data.v.totalAmount
+					? 'Check the people details table'
+					: ''}
+				class="btn preset-filled-primary-500 w-1/2"
+				disabled={data.v.totalAmount == 0 || peopleData_sumPaid != data.v.totalAmount}
+				onclick={() => {
+					mermaidState.mermaidString = calculateAllTransactions(data.v);
+					appState.v.showOutput = true;
+				}}
+			>
+				{#if !appState.v.showOutput}
+					Calculate
+				{:else}
+					Calculated!
+				{/if}
+			</button>
 		</div>
-	</div>
-
-	<div class="w-full text-center print:hidden">
-		<button
-			title={data.v.totalAmount == 0 || peopleData_sumPaid != data.v.totalAmount
-				? 'Check the people details table'
-				: ''}
-			class="btn preset-filled-primary-500 w-1/2"
-			disabled={data.v.totalAmount == 0 || peopleData_sumPaid != data.v.totalAmount}
-			onclick={() => {
-				mermaidState.mermaidString = calculateAllTransactions(data.v);
-				appState.v.showOutput = true;
-			}}
-		>
-			{#if !appState.v.showOutput}
-				Calculate
-			{:else}
-				Calculated!
-			{/if}
-		</button>
-	</div>
-{/if}
+	{/if}
+</div>
 
 <!--  -->
 <!--  -->
@@ -199,7 +187,7 @@
 	<Modal
 		open={modalOpenState_example}
 		onOpenChange={(e) => (modalOpenState_example = e.open)}
-		triggerBase="btn preset-tonal p-2"
+		triggerBase="btn preset-tonal h-8"
 		contentBase="card bg-surface-100-900 p-4 space-y-4 shadow-xl max-w-screen-sm"
 	>
 		{#snippet trigger()}
@@ -210,7 +198,7 @@
 				<h4 class="h4">Load Example Dataset?</h4>
 			</header>
 			<article>
-				<p class="opacity-60">It will override current data</p>
+				<p class="opacity-60">It will override current data.</p>
 			</article>
 			<footer class="flex justify-end gap-4">
 				<button type="button" class="btn preset-tonal" onclick={modalClose}>Cancel</button>
@@ -231,11 +219,11 @@
 	<Modal
 		open={modalOpenState_reset}
 		onOpenChange={(e) => (modalOpenState_reset = e.open)}
-		triggerBase="btn preset-tonal"
+		triggerBase="btn preset-tonal h-8"
 		contentBase="card bg-surface-100-900 p-4 space-y-4 shadow-xl max-w-screen-sm"
 	>
 		{#snippet trigger()}
-			Reset all
+			Reset
 		{/snippet}
 		{#snippet content()}
 			<header class="flex justify-between">

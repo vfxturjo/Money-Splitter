@@ -5,28 +5,26 @@
 </script>
 
 <!-- Main input -->
-<div class="*:p-2">
-	<InputParts />
-</div>
+<div class="flex w-full flex-col items-center">
+	<div class="w-full max-w-4xl">
+		<InputParts />
 
-<div class="print:hidden">
-	<div class="py-8"></div>
-	<hr class="hr border-4 border-double" />
-	<div class="py-6"></div>
-</div>
+		<div class="print:hidden">
+			<div class="py-8"></div>
+			<hr class="hr border-4 border-double" />
+			<div class="py-6"></div>
+		</div>
 
-{#if appState.v.showOutput}
-	<div class="w-full break-before-page text-center">
-		<OutputParts></OutputParts>
-
-		<button class="btn btn-sm preset-filled-surface-500 print:hidden" onclick={() => window.print()}
-			>Click to print</button
-		>
+		{#if appState.v.showOutput}
+			<div class="break-before-page">
+				<OutputParts></OutputParts>
+			</div>
+		{/if}
 	</div>
-{/if}
+</div>
 
 <!-- Footer -->
-<footer class="p-4 text-right opacity-70">
+<footer class="p-2 text-right opacity-70">
 	Thanks for using! Created by <a
 		href="https://github.com/vfxturjo"
 		class="badge preset-filled-secondary-500 hover:preset-filled"
