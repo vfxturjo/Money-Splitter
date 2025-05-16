@@ -4,6 +4,7 @@
 	"short_name": "MoneySplitter",
 	"display": "standalone",
 	"start_url": "https://vfxturjo.github.io/Money-Splitter/",
+	"url": "https://vfxturjo.github.io/Money-Splitter/app/",
 	"icons": [
 		{
 			"src": "appIcon-256.png",
