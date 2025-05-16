@@ -6,18 +6,18 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
 		<link href="../_app/immutable/assets/Tooltip.DXh0bXFJ.css" rel="stylesheet">
-		<link href="../_app/immutable/assets/0.BirXxjT2.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.Bttuicrb.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/TEHOq_OI.js">
+		<link href="../_app/immutable/assets/0.BzVi8o8K.css" rel="stylesheet">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.B2-N2ypm.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CPU49A90.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/IXbh5Tfi.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/QPizf1y_.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CPyDhcnX.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CRK5exiH.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.BG4ewyT6.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.CSESN45j.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/B4qFszAj.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/BZ4Bdd1Q.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/JVp5jAxD.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DzWe0Czb.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.Bzf_8vAr.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.DOFFZq8r.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CSSO3hgX.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/fqZQClWv.js">
 		<link rel="modulepreload" href="../_app/immutable/nodes/3.DcZ2RdL7.js">
@@ -30,7 +30,7 @@
 			
 			<script>
 				{
-					__sveltekit_poje7l = {
+					__sveltekit_7t0eyd = {
 						base: new URL("..", location).pathname.slice(0, -1),
 						assets: "/Money-Splitter"
 					};
@@ -38,8 +38,8 @@
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.Bttuicrb.js"),
-						import("../_app/immutable/entry/app.BG4ewyT6.js")
+						import("../_app/immutable/entry/start.B2-N2ypm.js"),
+						import("../_app/immutable/entry/app.CSESN45j.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 3],
@@ -48,6 +48,12 @@
 							error: null
 						});
 					});
+
+					if ('serviceWorker' in navigator) {
+						addEventListener('load', function () {
+							navigator.serviceWorker.register('../service-worker.js');
+						});
+					}
 				}
 			</script>
 		</div>
