@@ -1,0 +1,29 @@
+{
+	"name": "Money Splitter",
+	"description": "Split money easily",
+	"short_name": "MoneySplitter",
+	"display": "standalone",
+	"start_url": "/",
+	"icons": [
+		{
+			"src": "appIcon-256.png",
+			"sizes": "256x256",
+			"type": "image/png"
+		},
+		{
+			"src": "appIcon-128.png",
+			"sizes": "128x128",
+			"type": "image/png"
+		},
+		{
+			"src": "appIcon-64.png",
+			"sizes": "64x64",
+			"type": "image/png"
+		},
+		{
+			"src": "appIcon-32.png",
+			"sizes": "32x32",
+			"type": "image/png"
+		}
+	]
+}

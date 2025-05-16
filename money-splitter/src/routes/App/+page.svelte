@@ -5,7 +5,7 @@
 </script>
 
 <!-- Main input -->
-<div class="flex w-full flex-col items-center">
+<div class="container mx-auto flex w-full flex-col items-center">
 	<div class="w-full max-w-4xl">
 		<InputParts />
 

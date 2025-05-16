@@ -4,6 +4,7 @@
 		createFullCalculatedTableData,
 		mermaidState
 	} from '$lib/state.svelte';
+
 	import MermaidRender from './mermaidRender.svelte';
 
 	$effect(() => {

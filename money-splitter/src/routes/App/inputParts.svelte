@@ -5,10 +5,10 @@
 		data,
 		loadExampleDataset,
 		mermaidState,
-		resetPeopleData,
-		type SplitData
+		resetPeopleData
 	} from '$lib/state.svelte';
 	import { Paperclip } from 'lucide-svelte';
+	import autoAnimate from '@formkit/auto-animate';
 
 	let amountToPayPerPerson = $derived(
 		Number((data.v.totalAmount / data.v.totalNoOfPeople).toFixed(2))
@@ -18,6 +18,7 @@
 	);
 
 	import { Modal } from '@skeletonlabs/skeleton-svelte';
+	import { fade } from 'svelte/transition';
 	let modalOpenState_example = $state(false);
 	let modalOpenState_reset = $state(false);
 	function modalClose() {
@@ -26,7 +27,7 @@
 	}
 </script>
 
-<div class="space-y-4">
+<div class="space-y-4" use:autoAnimate>
 	<div class="flex">
 		<h4 class="h4 w-full text-left">Overall Scenerio</h4>
 		{@render ExampleDatasetLoader()}
@@ -82,7 +83,7 @@
 					<th class="!text-center"><span>Amount Owing </span> </th>
 				</tr>
 			</thead>
-			<tbody class="[&>tr]:hover:preset-outlined-primary-50-950">
+			<tbody class="[&>tr]:hover:preset-outlined-primary-50-950" use:autoAnimate>
 				{#each data.v.peopleData as person (person.id)}
 					<tr>
 						<td>{person.id}</td>
