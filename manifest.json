@@ -3,8 +3,9 @@
 	"description": "Split money easily",
 	"short_name": "MoneySplitter",
 	"display": "standalone",
-	"start_url": "https://vfxturjo.github.io/Money-Splitter/",
-	"url": "https://vfxturjo.github.io/Money-Splitter/app/",
+	"start_url": "/Money-Splitter/",
+	"url": "/Money-Splitter/app/",
+	"scope": "/Money-Splitter/",
 	"icons": [
 		{
 			"src": "appIcon-256.png",
