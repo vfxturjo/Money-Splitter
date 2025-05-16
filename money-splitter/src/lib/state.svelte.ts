@@ -165,7 +165,7 @@ export const mermaidState = $state({
 
 export const calculatedResults = $state({
 	optimumTransactions: [] as [string, string, number][],
-	fullTableData: [] as (string | number | { to: string; amount: number }[])[][]
+	fullTableData: [] as [number, string, number, number, { to: string; amount: number }[]][]
 });
 
 export function createFullCalculatedTableData() {
@@ -179,7 +179,13 @@ export function createFullCalculatedTableData() {
 			}
 		});
 
-		return [person.id, person.name, person.paid, amountDue, toPay];
+		return [person.id, person.name, person.paid, amountDue, toPay] as [
+			number,
+			string,
+			number,
+			number,
+			{ to: string; amount: number }[]
+		];
 	});
 	// console.log(tableData);
 

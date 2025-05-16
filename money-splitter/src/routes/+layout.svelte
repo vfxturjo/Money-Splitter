@@ -25,4 +25,14 @@
 			{@render children()}
 		</main>
 	{/key}
+
+	<!-- Footer -->
+	<footer class="p-2 text-right opacity-70">
+		Thanks for using! Created with ♡ by <a
+			href="https://github.com/vfxturjo"
+			class="badge preset-filled-secondary-500 hover:preset-filled"
+		>
+			vfxTurjo
+		</a>
+	</footer>
 </div>

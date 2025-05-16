@@ -24,10 +24,10 @@
 			<thead>
 				<tr>
 					<th class="w-10 text-center">#</th>
-					<th class="w-40 text-center">Name</th>
+					<th class="w-36 text-center">Name</th>
 					<th class="w-28 !text-right">Paid</th>
 					<th class="w-28 !text-right">Balance</th>
-					<th class="w-44 min-w-44 !text-right">Transactions</th>
+					<th class="w-44 !text-right">Transactions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -35,13 +35,24 @@
 					<tr>
 						<td>{row[0]}</td>
 						<td class="text-left">{row[1]}</td>
-						<td class="text-right">{row[2]}</td>
-						<td class="text-right">{row[3]}</td>
+						<td class="text-right">{row[2].toFixed(2)}</td>
+						<td class="text-right {-row[3] < 0 ? 'text-red-500' : 'text-green-500'}"
+							>{-row[3].toFixed(2)}</td
+						>
 						<td class="text-right">
 							{#if Array.isArray(row[4]) && row[4].length}
-								<ul>
+								<ul class="space-y-6">
 									{#each row[4] as tx}
-										<li>to {tx.to}: {tx.amount}</li>
+										<!-- <li class="mb-0 text-center">To {tx.to}:</li>
+										<li class="mb-2 pb-1">{tx.amount.toFixed(2)}</li> -->
+										<li class="">
+											<p class="mb-[-5px] text-center">
+												To {tx.to}:
+											</p>
+											<p class="text-right">
+												{tx.amount.toFixed(2)}
+											</p>
+										</li>
 									{/each}
 								</ul>
 							{:else}

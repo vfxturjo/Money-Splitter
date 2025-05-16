@@ -16,19 +16,9 @@
 		</div>
 
 		{#if appState.v.showOutput}
-			<div class="break-before-page">
+			<div class="print:break-before-page">
 				<OutputParts></OutputParts>
 			</div>
 		{/if}
 	</div>
 </div>
-
-<!-- Footer -->
-<footer class="p-2 text-right opacity-70">
-	Thanks for using! Created by <a
-		href="https://github.com/vfxturjo"
-		class="badge preset-filled-secondary-500 hover:preset-filled"
-	>
-		vfxTurjo
-	</a>
-</footer>

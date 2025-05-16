@@ -80,7 +80,9 @@
 					<th class="!text-center"><span>ID </span> </th>
 					<th class="!text-center"><span>Name </span> </th>
 					<th class="!text-center"><span>Amount Paid </span> </th>
-					<th class="!text-center"><span>Amount Owing </span> </th>
+
+					<!-- ref:OWING-ISSUE Following thing is removed, as users do not understand the use. in future, it will be toggle-able using a settings page -->
+					<!-- <th class="!text-center"><span>Amount Owing </span> </th> -->
 				</tr>
 			</thead>
 			<tbody class="[&>tr]:hover:preset-outlined-primary-50-950" use:autoAnimate>
@@ -117,13 +119,15 @@
 								}}
 							/>
 						</td>
-						<td class="text-right">
+
+						<!-- ref:OWING-ISSUE -->
+						<!-- <td class="text-right">
 							<span
 								class={amountToPayPerPerson - person.paid < 0 ? 'text-green-500' : 'text-red-500'}
 							>
 								{(amountToPayPerPerson - person.paid).toFixed(2)}
 							</span>
-						</td>
+						</td> -->
 					</tr>
 				{/each}
 				<tr>
@@ -136,9 +140,14 @@
 								: 'text-red-500'} mx-3"
 						>
 							{peopleData_sumPaid}
+							{peopleData_sumPaid == data.v.totalAmount
+								? ''
+								: '  (Mismatch: ' + (peopleData_sumPaid - data.v.totalAmount) + ')'}
 						</span>
 					</td>
-					<td class="text-right">
+
+					<!-- ref:OWING-ISSUE -->
+					<!-- <td class="text-right">
 						<span
 							class={peopleData_sumPaid == data.v.totalAmount ? 'text-green-500' : 'text-red-500'}
 						>
@@ -146,7 +155,7 @@
 								? ''
 								: 'Mismatch! (' + (peopleData_sumPaid - data.v.totalAmount) + ')'}
 						</span>
-					</td>
+					</td> -->
 				</tr>
 			</tbody>
 		</table>
