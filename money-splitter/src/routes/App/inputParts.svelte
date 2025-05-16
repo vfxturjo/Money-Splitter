@@ -29,10 +29,7 @@
 <div class="space-y-4">
 	<div class="flex">
 		<h4 class="h4 w-full text-left">Overall Scenerio</h4>
-		<button class="px-2" title="Load Example Dataset">
-			{@render ExampleDatasetLoader()}
-		</button>
-
+		{@render ExampleDatasetLoader()}
 		{@render ResetAllData()}
 	</div>
 	<form class="mx-auto w-full flex-col items-center space-y-4">
@@ -187,7 +184,7 @@
 	<Modal
 		open={modalOpenState_example}
 		onOpenChange={(e) => (modalOpenState_example = e.open)}
-		triggerBase="btn preset-tonal h-8"
+		triggerBase="btn preset-tonal h-8 mx-2"
 		contentBase="card bg-surface-100-900 p-4 space-y-4 shadow-xl max-w-screen-sm"
 	>
 		{#snippet trigger()}

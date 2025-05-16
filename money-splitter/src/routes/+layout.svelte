@@ -1,10 +1,14 @@
 <script lang="ts">
-	import { base } from '$app/paths';
 	import '../app.css';
-
+	import { base } from '$app/paths';
+	import { page } from '$app/state';
+	import { AppBar } from '@skeletonlabs/skeleton-svelte';
 	let { children } = $props();
 
-	import { AppBar } from '@skeletonlabs/skeleton-svelte';
+	// Transition logic
+	import { fade } from 'svelte/transition';
+	let url = $derived(page.url.href);
+	const transition_time = 100;
 </script>
 
 <div class="grid grid-rows-[auto_1fr_auto]">
@@ -12,7 +16,13 @@
 		<a class="h5" href="{base}/">Money Splitter</a>
 	</AppBar>
 
-	<main class="col-span-1 space-y-4 p-4">
-		{@render children()}
-	</main>
+	{#key url}
+		<main
+			class="col-span-1 space-y-4 p-4"
+			in:fade={{ duration: transition_time, delay: transition_time + 1 }}
+			out:fade={{ duration: transition_time }}
+		>
+			{@render children()}
+		</main>
+	{/key}
 </div>
