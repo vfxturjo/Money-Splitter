@@ -2,7 +2,7 @@
 	"name": "Money Splitter",
 	"description": "Split money easily",
 	"short_name": "MoneySplitter",
-	"display": "browser",
+	"display": "standalone",
 	"start_url": "/Money-Splitter/",
 	"url": "/Money-Splitter/app/",
 	"scope": "/Money-Splitter/",
