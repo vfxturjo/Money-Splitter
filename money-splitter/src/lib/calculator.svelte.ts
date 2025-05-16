@@ -16,10 +16,19 @@ export function calculateAllTransactions(d: SplitData) {
 
 	const peopleData = JSON.parse(JSON.stringify(d.peopleData)) as paymentInfoCalc[];
 
+	// Use a small tolerance for floating-point comparisons
+	const EPSILON = 0.001;
+
 	// calculating the toPay and solved values
 	peopleData.forEach((element) => {
 		element.toPay = Number(averagePay) - element.paid;
 		element.solved = false;
+	});
+
+	peopleData.forEach((element) => {
+		if (Math.abs(element.toPay) < EPSILON) {
+			element.solved = true;
+		}
 	});
 
 	//
@@ -58,9 +67,6 @@ export function calculateAllTransactions(d: SplitData) {
 
 	// Array to store the complicated payments
 	const complicatedPayments = [];
-
-	// Use a small tolerance for floating-point comparisons
-	const EPSILON = 0.001;
 
 	while (payers.length > 0 && receivers.length > 0) {
 		// Get the person who needs to pay the most and the person who needs to receive the most
