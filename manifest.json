@@ -3,7 +3,7 @@
 	"description": "Split money easily",
 	"short_name": "MoneySplitter",
 	"display": "browser",
-	"start_url": "/",
+	"start_url": "/index.html",
 	"icons": [
 		{
 			"src": "appIcon-256.png",
