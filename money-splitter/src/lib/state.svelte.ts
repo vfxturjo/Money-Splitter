@@ -73,6 +73,7 @@ export interface SplitData {
 export const appState = new PersistedStateObjectAdvanced(
 	'appState',
 	{
+		isPWAapp: false,
 		showInputTable: false,
 		showOutput: false
 	},

@@ -3,16 +3,28 @@
 	import { base } from '$app/paths';
 	import { page } from '$app/state';
 	import { AppBar } from '@skeletonlabs/skeleton-svelte';
+	import { appState } from '$lib/state.svelte';
 	let { children } = $props();
 
 	// Transition logic
 	import { fade } from 'svelte/transition';
+	import { onMount } from 'svelte';
 	let url = $derived(page.url.href);
 	const transition_time = 100;
+
+	// Check PWA
+	onMount(() => {
+		if (window.matchMedia('(display-mode: standalone)').matches) {
+			appState.v.isPWAapp = true;
+		} else {
+			appState.v.isPWAapp = false;
+		}
+	});
 </script>
 
 <div class="grid grid-rows-[auto_1fr_auto]">
 	<AppBar base="top-0 z-10 p-4" centerClasses="">
+		{#snippet lead()}{/snippet}
 		<a class="h5" href="{base}/">Money Splitter</a>
 	</AppBar>
 
